@@ -20,6 +20,26 @@ export async function GET(request) {
   const from = (page - 1) * pageSize;
   const to = from + pageSize - 1;
 
+  if (!admin.supabase) {
+    return NextResponse.json({
+      offers: [
+        {
+          id: "demo-offer-1",
+          product_id: productId || "demo-prod-1",
+          store_id: storeId || "demo-store-1",
+          price: 2999,
+          currency: "INR",
+          products: { name: "Demo Product", slug: "demo-product" },
+          stores: { name: "Demo Store", slug: "demo-store", status: "active" },
+          updated_at: new Date().toISOString()
+        }
+      ],
+      total: 1,
+      page,
+      pageSize
+    });
+  }
+
   let query = admin.supabase
     .from("offers")
     .select("*, products(name, slug), stores(name, slug, status)", { count: "exact" })

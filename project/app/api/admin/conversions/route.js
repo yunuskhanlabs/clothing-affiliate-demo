@@ -24,6 +24,25 @@ export async function GET(request) {
   const from = (page - 1) * pageSize;
   const to = from + pageSize - 1;
 
+  if (!admin.supabase) {
+    return NextResponse.json({
+      conversions: [
+        {
+          id: "demo-conv-1",
+          store_id: storeId || "demo-store-1",
+          status: status || "approved",
+          created_at: new Date().toISOString(),
+          stores: { name: "Demo Store" },
+          products: { name: "Demo Product" },
+          commissions: [{ amount: 15.0, status: "approved" }]
+        }
+      ],
+      total: 1,
+      page,
+      pageSize
+    });
+  }
+
   let query = admin.supabase
     .from("conversions")
     .select("*, stores(name), products(name), commissions(amount, status)", { count: "exact" })

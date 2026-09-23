@@ -36,7 +36,7 @@ export default function AccountPage() {
           description="Sign in to manage your wishlist, saved searches, and price alerts."
           action={
             <div className="mt-2 flex gap-3">
-              <Button as="link" href="/login">
+              <Button as="link" href={`/login${typeof window !== 'undefined' && window.location.search ? window.location.search : ''}`}>
                 Sign in
               </Button>
               <Button as="link" href="/signup" variant="secondary">

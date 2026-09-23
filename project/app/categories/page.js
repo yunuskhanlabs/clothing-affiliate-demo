@@ -4,10 +4,10 @@ import { SectionHeading } from "@/components/ui/Section";
 import { getTaxonomy } from "@/lib/products";
 
 export const metadata = {
-  title: "Categories — CLOXTRO",
-  description: "Browse every clothing category CLOXTRO tracks.",
+  title: "Categories — Affiliate Demo",
+  description: "Browse every clothing category Affiliate Demo tracks.",
   alternates: { canonical: "/categories" },
-  openGraph: { title: "Categories — CLOXTRO", description: "Browse every clothing category CLOXTRO tracks.", url: "/categories" },
+  openGraph: { title: "Categories — Affiliate Demo", description: "Browse every clothing category Affiliate Demo tracks.", url: "/categories" },
 };
 
 export default async function CategoriesPage() {

@@ -5,10 +5,10 @@ import { LoadingState } from "@/components/ui/States";
 import CatalogView from "@/components/catalog/CatalogView";
 
 export const metadata = {
-  title: "All Products — CLOXTRO",
-  description: "Browse the full CLOXTRO catalog — filter by category, brand, price, size, color and more.",
+  title: "All Products — Affiliate Demo",
+  description: "Browse the full Affiliate Demo catalog — filter by category, brand, price, size, color and more.",
   alternates: { canonical: "/products" },
-  openGraph: { title: "All Products — CLOXTRO", description: "Browse the full CLOXTRO catalog — filter by category, brand, price, size, color and more.", url: "/products" },
+  openGraph: { title: "All Products — Affiliate Demo", description: "Browse the full Affiliate Demo catalog — filter by category, brand, price, size, color and more.", url: "/products" },
 };
 
 export default function ProductsPage() {

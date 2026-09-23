@@ -21,8 +21,20 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const supabase = getSupabaseBrowserClient();
 
-    supabase.auth.getUser().then(({ data }) => {
-      setUser(data.user ?? null);
+    supabase.auth.getUser().then(async ({ data }) => {
+      let activeUser = data.user ?? null;
+      if (!activeUser) {
+        try {
+          const res = await fetch("/api/auth/me");
+          if (res.ok) {
+            const { user } = await res.json();
+            activeUser = user;
+          }
+        } catch (err) {
+          // Ignore fetch errors
+        }
+      }
+      setUser(activeUser);
       setLoading(false);
     });
 

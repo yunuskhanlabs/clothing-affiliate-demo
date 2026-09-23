@@ -22,7 +22,7 @@ export default function GlobalError({ error, reset }) {
     <html lang="en">
       <body style={{ fontFamily: "system-ui, sans-serif", background: "#151513", color: "#f2f0ec", display: "flex", minHeight: "100vh", alignItems: "center", justifyContent: "center", textAlign: "center", padding: 24 }}>
         <div>
-          <p style={{ fontSize: 14, letterSpacing: "0.1em", textTransform: "uppercase", color: "#8b8983" }}>CLOXTRO</p>
+          <p style={{ fontSize: 14, letterSpacing: "0.1em", textTransform: "uppercase", color: "#8b8983" }}>Affiliate Demo</p>
           <h1 style={{ fontSize: 20, margin: "12px 0" }}>Something went wrong</h1>
           <p style={{ color: "#8b8983", fontSize: 14, maxWidth: 360, margin: "0 auto 20px" }}>
             The page failed to load. It&apos;s been logged on our end — please try again.

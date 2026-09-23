@@ -15,33 +15,42 @@ export const dynamic = "force-dynamic";
 const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const DEMO_OFFER_REGEX = /^off-[0-9a-zA-Z_-]{1,64}$|^offer-[0-9a-zA-Z_-]{1,64}$|^p-[0-9a-zA-Z_-]{1,64}$/;
 
-function renderErrorPage(status, requestId, newSessionId) {
+function renderInterstitial(options) {
+  const { title, message, actionText, actionUrl, isError, requestId, newSessionId, autoRedirect } = options;
   const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Deal Unavailable — Affiliate Demo</title>
+  <title>${title} — Affiliate Demo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
+  ${autoRedirect ? `<meta http-equiv="refresh" content="2;url=${actionUrl}">` : ''}
   <style>
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0E0E10; color: #F4F4F5; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 24px; box-sizing: border-box; }
-    .card { background: #18181B; border: 1px solid #27272A; border-radius: 8px; padding: 32px; max-width: 440px; text-align: center; }
+    .card { background: #18181B; border: 1px solid #27272A; border-radius: 12px; padding: 40px; max-width: 440px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    .logo { font-size: 24px; font-weight: 800; color: #FFFFFF; margin-bottom: 24px; letter-spacing: -0.5px; }
+    .icon { font-size: 48px; margin-bottom: 16px; ${isError ? 'color: #ef4444;' : 'color: #10b981;'} }
     h1 { font-size: 20px; margin: 0 0 12px; font-weight: 600; color: #FFFFFF; }
     p { font-size: 14px; color: #A1A1AA; line-height: 1.5; margin: 0 0 24px; }
-    a { display: inline-block; background: #ff3d57; color: #FFFFFF; text-decoration: none; padding: 10px 20px; border-radius: 6px; font-size: 14px; font-weight: 500; }
+    a { display: inline-block; background: ${isError ? '#ff3d57' : '#FFFFFF'}; color: ${isError ? '#FFFFFF' : '#000000'}; text-decoration: none; padding: 12px 24px; border-radius: 6px; font-size: 14px; font-weight: 600; transition: opacity 0.2s; }
+    a:hover { opacity: 0.9; }
+    .demo-badge { display: inline-block; background: rgba(255,255,255,0.1); color: #FFF; padding: 4px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; text-transform: uppercase; margin-bottom: 16px; letter-spacing: 1px; }
   </style>
 </head>
 <body>
   <div class="card">
-    <h1>Deal Unavailable</h1>
-    <p>This deal isn't available right now. Please browse our other trending deals and products.</p>
-    <a href="/deals">Browse Deals</a>
+    <div class="demo-badge">Demo Mode</div>
+    <div class="logo">Affiliate Demo</div>
+    <div class="icon">${isError ? '⚠️' : '🛍️'}</div>
+    <h1>${title}</h1>
+    <p>${message}</p>
+    <a href="${actionUrl}">${actionText}</a>
   </div>
 </body>
 </html>`;
 
   const res = new NextResponse(html, {
-    status,
+    status: options.status || 200,
     headers: {
       "Content-Type": "text/html; charset=utf-8",
       "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
@@ -89,7 +98,16 @@ export async function GET(request, { params } = {}) {
     offerId.length > 100 ||
     (!UUID_REGEX.test(offerId) && !DEMO_OFFER_REGEX.test(offerId))
   ) {
-    return renderErrorPage(400, requestId, isNewSession ? sessionId : null);
+    return renderInterstitial({
+      title: "Invalid Offer ID",
+      message: "The requested deal ID is invalid or malformed.",
+      actionText: "Browse Deals",
+      actionUrl: "/deals",
+      isError: true,
+      requestId,
+      newSessionId: isNewSession ? sessionId : null,
+      status: 400
+    });
   }
 
   let offer = null;
@@ -181,7 +199,16 @@ export async function GET(request, { params } = {}) {
 
   // 6. Availability & entity status verification
   if (!offer) {
-    return renderErrorPage(404, requestId, isNewSession ? sessionId : null);
+    return renderInterstitial({
+      title: "Deal Unavailable",
+      message: "We couldn't find this offer. It may have expired or been removed.",
+      actionText: "Browse Deals",
+      actionUrl: "/deals",
+      isError: true,
+      requestId,
+      newSessionId: isNewSession ? sessionId : null,
+      status: 404
+    });
   }
 
   if (
@@ -190,13 +217,31 @@ export async function GET(request, { params } = {}) {
     store?.status === "suspended" ||
     product?.status === "archived"
   ) {
-    return renderErrorPage(410, requestId, isNewSession ? sessionId : null);
+    return renderInterstitial({
+      title: "Offer Suspended",
+      message: "This deal is no longer active or the partner store is temporarily paused.",
+      actionText: "Browse Deals",
+      actionUrl: "/deals",
+      isError: true,
+      requestId,
+      newSessionId: isNewSession ? sessionId : null,
+      status: 410
+    });
   }
 
   // 7. Resolve trusted destination URL with SSRF & protocol protection
   const destinationUrl = resolveTrustedDestination(offer, store);
   if (!destinationUrl) {
-    return renderErrorPage(502, requestId, isNewSession ? sessionId : null);
+    return renderInterstitial({
+      title: "Invalid Destination",
+      message: "The partner store URL failed our security checks.",
+      actionText: "Browse Deals",
+      actionUrl: "/deals",
+      isError: true,
+      requestId,
+      newSessionId: isNewSession ? sessionId : null,
+      status: 502
+    });
   }
 
   // 8. Generate Click ID & inject tracking param
@@ -222,17 +267,17 @@ export async function GET(request, { params } = {}) {
     }).catch(() => {});
   }
 
-  // 10. Issue 302 temporary redirect with security headers
-  const response = NextResponse.redirect(finalRedirectUrl, { status: 302 });
-  response.headers.set("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
-  response.headers.set("Pragma", "no-cache");
-  response.headers.set("X-Robots-Tag", "noindex, nofollow");
-  response.headers.set("x-request-id", requestId);
-
-  if (isNewSession) {
-    applySessionCookie(response, sessionId);
-  }
-
-  return response;
+  // 10. Issue demo interstitial (auto-redirects to merchant)
+  return renderInterstitial({
+    title: "Redirecting to Partner Store",
+    message: "Demo Mode: The click has been tracked and the subID was injected. You are now being securely forwarded.",
+    actionText: "Continue to Store",
+    actionUrl: finalRedirectUrl,
+    isError: false,
+    requestId,
+    newSessionId: isNewSession ? sessionId : null,
+    status: 200,
+    autoRedirect: true
+  });
 }
 

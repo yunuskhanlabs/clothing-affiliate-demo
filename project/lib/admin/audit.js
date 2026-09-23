@@ -26,6 +26,10 @@ import "server-only";
  * @param {boolean} [params.stepUpUsed]
  */
 export async function logAdminAction({ supabase, actor, action, entityType, entityId = null, metadata = {}, stepUpUsed = false }) {
+  if (!supabase) {
+    console.log(`[ADMIN_ACTION] action="${action}" entityType="${entityType}" entityId="${entityId || "none"}" actor="${actor?.email || "demo-admin"}" stepUp=${stepUpUsed}`);
+    return;
+  }
   const { error } = await supabase.rpc("log_admin_action", {
     p_actor_id: actor.id,
     p_actor_email: actor.email || null,

@@ -12,7 +12,7 @@
  * for a working canonical URL if someone forgets to set the real one in
  * production.
  */
-export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://cloxtro.example.com").replace(/\/+$/, "");
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://demo.cloxtro.com").replace(/\/+$/, "");
 
 export function absoluteUrl(path = "/") {
   return new URL(path, SITE_URL).toString();

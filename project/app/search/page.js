@@ -5,8 +5,8 @@ import { LoadingState } from "@/components/ui/States";
 import SearchPageBody from "@/components/catalog/SearchPageBody";
 
 export const metadata = {
-  title: "Search — CLOXTRO",
-  description: "Search the CLOXTRO catalog by name, brand, category, color, or price.",
+  title: "Search — Affiliate Demo",
+  description: "Search the Affiliate Demo catalog by name, brand, category, color, or price.",
   alternates: { canonical: "/search" },
   // PART 6 §9: arbitrary user search queries must never be indexed —
   // `follow: true` still lets crawlers reach linked product pages from

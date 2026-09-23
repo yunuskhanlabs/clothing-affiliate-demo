@@ -25,7 +25,7 @@ export async function generateMetadata({ params }) {
   if (!slugs.includes(params.slug)) notFound();
   const label = await getSubcategoryLabel(null, params.slug);
   const canonicalPath = `/categories/${params.slug}`;
-  const title = `${label} — CLOXTRO`;
+  const title = `${label} — Affiliate Demo`;
   const description = `Shop ${label} across Men, Women and Kids — filter by price, size, color, brand and more.`;
   return {
     title,

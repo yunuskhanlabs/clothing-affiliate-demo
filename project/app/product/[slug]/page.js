@@ -28,7 +28,7 @@ export async function generateMetadata({ params }) {
   if (!product || product.status === "archived" || product.status === "inactive") notFound();
 
   const canonicalPath = `/product/${product.slug}`;
-  const title = `${product.name} — CLOXTRO`;
+  const title = `${product.name} — Affiliate Demo`;
   const description = product.description;
   const image = product.images?.[0];
 

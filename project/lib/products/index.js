@@ -34,7 +34,8 @@ export async function queryProductCatalog(filters = {}, { page = 1, pageSize = 1
         p.description.toLowerCase().includes(q) ||
         p.brand.toLowerCase().includes(q) ||
         p.subcategory.toLowerCase().includes(q) ||
-        p.category.toLowerCase().includes(q)
+        p.category.toLowerCase().includes(q) ||
+        (p.colors && p.colors.some(c => c.name.toLowerCase().includes(q)))
     );
   }
 

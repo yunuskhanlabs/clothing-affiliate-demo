@@ -5,10 +5,10 @@ import { LoadingState } from "@/components/ui/States";
 import CatalogView from "@/components/catalog/CatalogView";
 
 export const metadata = {
-  title: "Women — CLOXTRO",
-  description: "Shop Women's fashion — trending pieces, deals, and new arrivals curated by CLOXTRO.",
+  title: "Women — Affiliate Demo",
+  description: "Shop Women's fashion — trending pieces, deals, and new arrivals curated by Affiliate Demo.",
   alternates: { canonical: "/women" },
-  openGraph: { title: "Women — CLOXTRO", description: "Shop Women's fashion — trending pieces, deals, and new arrivals curated by CLOXTRO.", url: "/women" },
+  openGraph: { title: "Women — Affiliate Demo", description: "Shop Women's fashion — trending pieces, deals, and new arrivals curated by Affiliate Demo.", url: "/women" },
 };
 
 export default function WomenPage() {

@@ -36,9 +36,14 @@ export async function GET(request, { params }) {
     return NextResponse.json({ error: `Unknown export resource. Supported: ${Object.keys(RESOURCES).join(", ")}` }, { status: 400 });
   }
 
-  const { data, error } = await admin.supabase.from(config.table).select(config.select).order(config.order, { ascending: false }).limit(5000);
-  if (error) return NextResponse.json({ error: `Could not export ${params.resource}.` }, { status: 500 });
-
+  let data = [];
+  if (!admin.supabase) {
+    data = [{ demo: true, message: `Mock export for ${params.resource}` }];
+  } else {
+    const res = await admin.supabase.from(config.table).select(config.select).order(config.order, { ascending: false }).limit(5000);
+    if (res.error) return NextResponse.json({ error: `Could not export ${params.resource}.` }, { status: 500 });
+    data = res.data;
+  }
   await logAdminAction({
     supabase: admin.supabase,
     actor: admin.user,

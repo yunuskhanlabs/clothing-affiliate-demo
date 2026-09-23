@@ -20,7 +20,7 @@ import { SITE_URL, absoluteUrl } from "@/lib/seo/site";
  *   rather than guessed.
  *
  * §15 affiliate integrity: `Offer.seller` names the actual partner
- * store (`stores.name`), never CLOXTRO itself — CLOXTRO is not the merchant
+ * store (`stores.name`), never Affiliate Demo itself — Affiliate Demo is not the merchant
  * of record, and schema.org's own `Offer.seller` field exists
  * specifically to express that distinction correctly.
  */
@@ -29,9 +29,9 @@ export function organizationSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "CLOXTRO",
+    name: "Affiliate Demo",
     url: SITE_URL,
-    description: "CLOXTRO curates fashion deals and price comparisons across partner stores.",
+    description: "Affiliate Demo curates fashion deals and price comparisons across partner stores.",
   };
 }
 
@@ -39,9 +39,9 @@ export function websiteSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "CLOXTRO",
+    name: "Affiliate Demo",
     url: SITE_URL,
-    // No SearchAction: CLOXTRO's search is a client-side-rendered results
+    // No SearchAction: Affiliate Demo's search is a client-side-rendered results
     // page driven by URL query state (lib/catalog/query-state.js), not a
     // GET-with-{search_term_string}-substitution endpoint schema.org's
     // SearchAction expects — a SearchAction here would describe a
@@ -121,8 +121,8 @@ function offerSchema(offer, product) {
         : product.availability === "low_stock"
           ? "https://schema.org/LimitedAvailability"
           : "https://schema.org/InStock",
-    // §15: the SELLER is the partner store, never CLOXTRO — CLOXTRO doesn't
-    // hold or ship inventory. `url` points at CLOXTRO's own tracked
+    // §15: the SELLER is the partner store, never Affiliate Demo — Affiliate Demo doesn't
+    // hold or ship inventory. `url` points at Affiliate Demo's own tracked
     // redirect (never the raw merchant URL — §41 keeps that
     // server-side-only), which is itself a legitimate `Offer.url`: the
     // page a shopper actually lands on to act on this offer.

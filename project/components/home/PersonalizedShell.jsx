@@ -43,7 +43,7 @@ export default async function PersonalizedShell() {
       <SectionHeading
         eyebrow="For you"
         title={personalized ? "Picked for you" : "Popular right now"}
-        description={personalized ? "Based on what you've saved." : "Sign in and save a few pieces — CLOXTRO will start learning your style."}
+        description={personalized ? "Based on what you've saved." : "Sign in and save a few pieces — Affiliate Demo will start learning your style."}
       />
       <ProductGrid products={products} />
     </Section>

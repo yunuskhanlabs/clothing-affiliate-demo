@@ -26,7 +26,13 @@ export default function LoginPage() {
       setError(signInError);
       return;
     }
-    router.push("/admin");
+    const urlParams = new URLSearchParams(window.location.search);
+    let nextUrl = urlParams.get("next") || "/admin";
+    if (!nextUrl.startsWith("/") || nextUrl.startsWith("//")) {
+      nextUrl = "/admin"; // Prevent open redirects
+    }
+    
+    router.push(nextUrl);
     router.refresh();
   };
 

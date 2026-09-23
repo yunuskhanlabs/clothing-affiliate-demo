@@ -26,7 +26,7 @@ export default function ErrorBoundary({ error, reset }) {
 
   return (
     <Container className="flex min-h-[60svh] flex-col items-center justify-center pt-24 text-center sm:pt-28">
-      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-paper-muted">CLOXTRO</p>
+      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-paper-muted">Affiliate Demo</p>
       <h1 className="mt-3 font-display text-2xl text-paper">Something went wrong</h1>
       <p className="mt-3 max-w-md text-sm text-paper-dim">
         That didn&apos;t load the way it should have. It&apos;s been logged — try again, or head back to the homepage.
@@ -34,7 +34,7 @@ export default function ErrorBoundary({ error, reset }) {
       <div className="mt-8 flex gap-3">
         <Button onClick={reset}>Try again</Button>
         <Button as="a" href="/" variant="secondary">
-          Back to CLOXTRO
+          Back to Affiliate Demo
         </Button>
       </div>
     </Container>

@@ -54,10 +54,14 @@ export async function POST(request) {
   let succeeded = 0;
   const failed = [];
 
-  for (const id of ids) {
-    const { error } = await admin.supabase.from("products").update(patch).eq("id", id);
-    if (error) failed.push({ id, error: error.message });
-    else succeeded += 1;
+  if (!admin.supabase) {
+    succeeded = ids.length;
+  } else {
+    for (const id of ids) {
+      const { error } = await admin.supabase.from("products").update(patch).eq("id", id);
+      if (error) failed.push({ id, error: error.message });
+      else succeeded += 1;
+    }
   }
 
   await logAdminAction({

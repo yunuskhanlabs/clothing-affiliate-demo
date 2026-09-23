@@ -5,10 +5,10 @@ import { LoadingState } from "@/components/ui/States";
 import CatalogView from "@/components/catalog/CatalogView";
 
 export const metadata = {
-  title: "Kids — CLOXTRO",
-  description: "Shop Kids's fashion — trending pieces, deals, and new arrivals curated by CLOXTRO.",
+  title: "Kids — Affiliate Demo",
+  description: "Shop Kids's fashion — trending pieces, deals, and new arrivals curated by Affiliate Demo.",
   alternates: { canonical: "/kids" },
-  openGraph: { title: "Kids — CLOXTRO", description: "Shop Kids's fashion — trending pieces, deals, and new arrivals curated by CLOXTRO.", url: "/kids" },
+  openGraph: { title: "Kids — Affiliate Demo", description: "Shop Kids's fashion — trending pieces, deals, and new arrivals curated by Affiliate Demo.", url: "/kids" },
 };
 
 export default function KidsPage() {

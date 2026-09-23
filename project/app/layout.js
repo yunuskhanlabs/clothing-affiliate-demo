@@ -9,7 +9,7 @@ import "@fontsource/inter/600.css";
 import "@fontsource/inter/700.css";
 import "./globals.css";
 import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
+import ConditionalFooter from "@/components/layout/ConditionalFooter";
 import { AuthProvider } from "@/lib/auth/AuthProvider";
 import { WishlistProvider } from "@/lib/wishlist/WishlistProvider";
 import { SITE_URL } from "@/lib/seo/site";
@@ -61,7 +61,7 @@ export default function RootLayout({ children }) {
             <NextTopLoader color="#ff3d57" showSpinner={false} height={3} />
             <Header />
             <main id="main-content">{children}</main>
-            <Footer />
+            <ConditionalFooter />
           </WishlistProvider>
         </AuthProvider>
       </body>

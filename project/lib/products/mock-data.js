@@ -1,7 +1,7 @@
 /**
  * STANDALONE DEMO MOCK DATA
  * 
- * Provides complete in-memory mock data for the demo version of CLOXTRO.
+ * Provides complete in-memory mock data for the demo version of Affiliate Demo.
  * 100% independent of Supabase — no database needed!
  */
 
@@ -23,7 +23,7 @@ export const MOCK_SUBCATEGORIES = [
 ];
 
 export const MOCK_BRANDS = [
-  { name: "CLOXTRO Basics", slug: "cloxtro-basics" },
+  { name: "Affiliate Demo Basics", slug: "cloxtro-basics" },
   { name: "Northline", slug: "northline" },
   { name: "Aster & Co", slug: "aster-co" },
   { name: "Fieldstone", slug: "fieldstone" },
@@ -46,7 +46,7 @@ export const MOCK_PRODUCTS = [
     id: "p-0001",
     name: "Essential Heavyweight Crew Tee",
     slug: "essential-heavyweight-crew-tee",
-    brand: "CLOXTRO Basics",
+    brand: "Affiliate Demo Basics",
     category: "men",
     subcategory: "t-shirts",
     description: "Premium 240 GSM combed organic cotton t-shirt with a structured drape and relaxed fit.",

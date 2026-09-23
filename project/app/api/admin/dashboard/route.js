@@ -22,8 +22,12 @@ export async function GET() {
     ctr: 26.8,
     conversions: 342,
     conversion_rate: 8.9,
-    gross_sales_cents: 89400000, // ₹8,94,000
-    commission_cents: 4470000,  // ₹44,700
+    gross_sales_cents: 89400000,
+    commission_cents: 4470000,
+    epc: 12.50,
+    pending_commission: 15000.00,
+    approved_commission: 20000.00,
+    paid_commission: 9700.00,
   };
 
   const trend = [

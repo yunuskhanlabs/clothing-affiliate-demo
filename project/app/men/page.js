@@ -5,10 +5,10 @@ import { LoadingState } from "@/components/ui/States";
 import CatalogView from "@/components/catalog/CatalogView";
 
 export const metadata = {
-  title: "Men — CLOXTRO",
-  description: "Shop Men's fashion — trending pieces, deals, and new arrivals curated by CLOXTRO.",
+  title: "Men — Affiliate Demo",
+  description: "Shop Men's fashion — trending pieces, deals, and new arrivals curated by Affiliate Demo.",
   alternates: { canonical: "/men" },
-  openGraph: { title: "Men — CLOXTRO", description: "Shop Men's fashion — trending pieces, deals, and new arrivals curated by CLOXTRO.", url: "/men" },
+  openGraph: { title: "Men — Affiliate Demo", description: "Shop Men's fashion — trending pieces, deals, and new arrivals curated by Affiliate Demo.", url: "/men" },
 };
 
 export default function MenPage() {

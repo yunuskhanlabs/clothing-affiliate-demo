@@ -7,7 +7,7 @@ import CatalogView from "@/components/catalog/CatalogView";
 import AffiliateDisclosure from "@/components/product/AffiliateDisclosure";
 
 export const metadata = {
-  title: "Deals — CLOXTRO",
+  title: "Deals — Affiliate Demo",
   description: "Today's best discounts across Men, Women and Kids fashion.",
   alternates: { canonical: "/deals" }, // §7: the quick-link discount/price-max query variants stay unindexed-by-omission (never linked from anywhere else, not disallowed outright) rather than canonicalized away, matching §8's deep-linking rule
 };
